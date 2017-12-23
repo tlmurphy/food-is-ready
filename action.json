@@ -1,0 +1,20 @@
+{
+  "actions": [
+    {
+      "description": "Default Welcome Intent",
+      "name": "MAIN",
+      "fulfillment": {
+        "conversationName": "foodIsReadyApp"
+      },
+      "intent": {
+        "name": "actions.intent.MAIN"
+      }
+    }
+  ],
+  "conversations": {
+    "foodIsReadyApp": {
+      "name": "foodIsReadyApp",
+      "url": "https://us-central1-foodisready-bacf5.cloudfunctions.net/addMessage"
+    }
+  }
+}
