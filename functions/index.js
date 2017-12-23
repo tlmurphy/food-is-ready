@@ -3,6 +3,12 @@
 const ActionsSdkApp = require('actions-on-google').ActionsSdkApp;
 const functions = require('firebase-functions');
 
+const config = functions.config().fir;
+const accountSid = config.account_sid;
+const authToken = config.auth_token;
+const client = require('twilio')(accountSid, authToken);
+
+
 exports.addMessage = functions.https.onRequest((req, res) => {
   console.log('Entering test function...');
   const app = new ActionsSdkApp({request: req, response: res});
@@ -20,6 +26,15 @@ exports.addMessage = functions.https.onRequest((req, res) => {
     } else {
       let inputPrompt = app.buildInputPrompt(false, 'You just said ' +
         app.getRawInput() + '. Say something else I dare ya.');
+      const to_addresses = config.to.split(',');
+      to_addresses.forEach((to) => {
+        client.messages.create({
+            body: app.getRawInput(),
+            to: config.to.split(','),  // Text this number
+            from: config.from // From a valid Twilio number
+        })
+        .then((message) => console.log(message.sid));
+      });
       app.ask(inputPrompt);
     }
   }
