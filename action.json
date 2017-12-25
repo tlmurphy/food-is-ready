@@ -1,7 +1,7 @@
 {
   "actions": [
     {
-      "description": "Default Welcome Intent",
+      "description": "Main Intent",
       "name": "MAIN",
       "fulfillment": {
         "conversationName": "foodIsReadyApp"
