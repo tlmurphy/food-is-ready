@@ -14,15 +14,17 @@ exports.addMessage = functions.https.onRequest((req, res) => {
   function mainIntent(app) {
     console.log('Entering Main Intent');
     const to_addresses = config.to.split(',');
+    console.log('Sending messages to: ');
+    console.log(to_addresses);
     to_addresses.forEach((to) => {
       client.messages.create({
-          body: app.getRawInput(),
+          body: 'Food is ready :)',
           to: to,  // Text this number
           from: config.from // From a valid Twilio number
       })
       .then((message) => console.log(message.sid));
     });
-    app.tell('Messages sent :)');
+    app.tell('Messages sent.');
   }
 
   let actionMap = new Map();
